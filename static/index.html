@@ -3,482 +3,262 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clinic Logistics Assistant</title>
+  <title>Neurology Clinic Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    :root { --brand: #1565c0; --muted:#666; }
+    :root { --brand: #1565c0; }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
+
     body {
       font-family: 'Inter', system-ui, sans-serif;
       color: #2b2b2b;
-      /* colorful animated gradient (restored) */
-      background: linear-gradient(135deg, #c9ffbf, #ffafbd, #a1c4fd, #c2e9fb, #d4fc79);
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb, #e1f5fe, #e8f5e9, #f1f8e9);
       background-size: 400% 400%;
       animation: bgShift 18s ease infinite;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 2.5rem 1rem;
+      padding: 3rem 1rem;
     }
+
     @keyframes bgShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Card */
     .container {
       width: 100%;
-      max-width: 820px;
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 14px 40px rgba(17,24,39,0.06);
+      max-width: 760px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
       padding: 2rem 2rem 2.25rem;
     }
 
-    /* Title centered and prominent */
     h1 {
-      margin: 0 0 0.8rem;
-      font-size: clamp(1.8rem, 3.4vw + 0.8rem, 3rem);
-      line-height: 1.05;
+      margin: 0 0 .75rem;
+      font-size: clamp(1.8rem, 3.2vw + 1rem, 2.6rem);
+      line-height: 1.15;
       text-align: center;
       color: var(--brand);
-      font-weight: 800;
-      letter-spacing: -0.5px;
     }
 
-    p.intro {
-      margin: 0 0 1.2rem;
-      font-size: 1rem;
+    p {
+      margin: 0 0 1.25rem;
+      font-size: 1.05rem;
+      text-align: center;
+      color: #444;
+    }
+
+    .clinic-banner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .banner-card {
+      background: #fff;
+      border: 1px solid #ececf1;
+      border-radius: 12px;
+      padding: .9rem;
+      text-align: left;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    }
+
+    .banner-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 6px;
+    }
+
+    .banner-body {
+      font-size: .95rem;
       color: #333;
       line-height: 1.4;
-      text-align: center;
+      word-break: break-word;
     }
 
-    /* Controls area */
-    .center-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.9rem;
-      margin-top: 1rem;
+    .banner-body a {
+      color: var(--brand);
+      text-decoration: underline;
     }
 
-    /* LANGUAGE ROW: label + select in a centered row */
-    .lang-row {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* center the pair */
-      gap: 1rem;
-      width: 100%;
+    @media (max-width: 720px) {
+      .clinic-banner { grid-template-columns: 1fr; }
     }
 
-    .lang-row label {
-      font-weight: 700;
-      font-size: 1rem;
-      color: #222;
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    /* The select element styled to look compact and pill-like */
-    .lang-select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.55rem 1.05rem;
-      border-radius: 14px;
-      border: 1px solid #d7d7db;
-      background: #fff;
-      box-shadow: 0 1px 0 rgba(16,24,40,0.03);
-      font-size: 1rem;
-      min-width: 160px;
-      max-width: 280px;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .lang-select-wrapper { position: relative; display: inline-block; }
-    .lang-select-wrapper::after {
-      content: "▾";
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #444;
-      pointer-events: none;
-      font-size: 0.95rem;
-    }
-
-    /* Textarea */
-    textarea#question {
-      width: 88%;
-      max-width: 760px;
-      min-height: 140px;
-      margin: 0.6rem auto 0;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid #e7e7ea;
-      font-size: 1rem;
-      line-height: 1.45;
-      resize: vertical;
-      display: block;
-    }
-
-    /* Large centered Ask button */
-    button#askBtn {
-      display: block;
-      margin: 1.05rem auto 0;
-      padding: 0.92rem 2.2rem;
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: #fff;
-      background: linear-gradient(45deg, var(--brand), #003c8f);
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 10px 28px rgba(21,101,192,0.26);
-      transition: transform .06s ease, filter .15s ease;
-      line-height: 1;
-      letter-spacing: 0.2px;
-    }
-    button#askBtn:hover { transform: translateY(-2px); filter: brightness(1.03); }
-    button#askBtn:active { transform: translateY(0); }
-    button:disabled { opacity: .65; cursor: not-allowed; }
-
-    /* Notice */
-    .notice {
-      margin-top: 0.9rem;
-      text-align: left;
-      font-size: 0.95rem;
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    /* RESPONSE BOX: hidden by default so no empty rounded rectangle appears.
-       It will be shown only when content exists. */
     #response {
-      display: none;
-      margin-top: 1rem;
+      margin-top: 1.25rem;
       padding: 1rem;
       background: #fff;
-      border: 1px solid #f0f0f3;
-      border-radius: 10px;
-      min-height: 2.25rem;
-      line-height: 1.5;
+      border: 1px solid #ececf1;
+      border-radius: 12px;
+      min-height: 2.5rem;
+      line-height: 1.55;
       white-space: pre-wrap;
     }
 
-    /* Info box (outlined rectangle) centered */
-    .info-box {
-      margin: 1.15rem auto 0;
-      width: 88%;
-      max-width: 760px;
-      border: 1px solid rgba(31,74,198,0.12);
-      background: linear-gradient(180deg, rgba(245,250,255,0.9), rgba(255,255,255,0.95));
-      padding: 12px 14px;
-      border-radius: 10px;
+    .info-link {
+      margin-top: 1rem;
       text-align: center;
     }
-    .info-box a {
+
+    .info-link a {
       color: var(--brand);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-    }
-    .info-box a:hover { text-decoration: underline; }
-
-    /* Responsive tweaks */
-    @media (max-width: 620px) {
-      .lang-row { flex-direction: column; gap: 0.45rem; }
-      .lang-select { width: 86%; max-width: none; }
-      textarea#question { width: 94%; min-height: 120px; }
-      .info-box { width: 94%; }
+      text-decoration: underline;
+      font-weight: 600;
     }
 
-    /* --- Added: typewriter cursor (does not affect layout) --- */
-    .cursor {
-      display: inline-block;
-      margin-left: 2px;
-      font-weight: 700;
-      animation: cursorBlink 1s steps(2, start) infinite;
-      user-select: none;
+    .notice {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: .9rem;
+      color: #666;
     }
-    @keyframes cursorBlink { 50% { opacity: 0; } }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>🏥 Clinic Logistics Assistant</h1>
+<div class="container">
 
-    <p class="intro">
-      Non-medical help only: scheduling/rescheduling, directions, parking, entrances, and how to find the clinic inside the building.
-      For medical questions, call <strong>1-833-UT-CARES (1-833-882-2737)</strong>.
-    </p>
+  <h1 id="title">🧠 Neurology Clinic Assistant</h1>
 
-    <div class="center-controls" aria-label="Language and question controls">
-      <div class="lang-row" role="group" aria-label="language selector">
-        <label for="language">Language / Idioma:</label>
-        <div class="lang-select-wrapper" aria-hidden="true">
-          <select id="language" class="lang-select" aria-label="Language select">
-            <option value="en">English</option>
-            <option value="es">Español</option>
-          </select>
-        </div>
+  <p id="subtitle">
+    This assistant provides <strong>non-medical clinic navigation and logistics only</strong> for the
+    Mulva Clinic for the Neurosciences and Comprehensive Memory Center.
+    You can ask about scheduling, directions, parking, check-in steps, and how to find the clinic.
+    It does <strong>not</strong> provide medical advice, diagnoses, or treatment recommendations.
+  </p>
+
+  <div class="clinic-banner">
+    <div class="banner-card">
+      <div class="banner-title">📍 Location</div>
+      <div class="banner-body">
+        Health Transformation Building<br>
+        1601 Trinity Street, Building A<br>
+        Austin, TX 78712
       </div>
-
-      <textarea id="question" placeholder="Examples: 'Reschedule my appointment', 'Where do I park?', 'Which entrance/elevator?', 'Clinic address'"></textarea>
-
-      <button id="askBtn" onclick="ask()">Ask</button>
     </div>
 
-    <div class="notice">
-      ⚠️ Medical questions won’t be answered here. If you have symptoms or urgent concerns, call the clinic or go to the ER.
+    <div class="banner-card">
+      <div class="banner-title">👨‍⚕️ Provider</div>
+      <div class="banner-body">
+        Steve Steffensen, MD<br>
+        Neurologist – Comprehensive Memory Center
+      </div>
     </div>
 
-    <div id="response" aria-live="polite"></div>
-
-    <!-- centered outlined rectangle containing the "how it works" link -->
-    <div class="info-box">
-      <a href="/info">ℹ️ About this demo & what it covers</a>
+    <div class="banner-card">
+      <div class="banner-title">📞 Appointments</div>
+      <div class="banner-body">
+        <a href="tel:18338822737">1-833-UT-CARES (1-833-882-2737)</a>
+      </div>
     </div>
-
-    <!-- (consent/metrics sentence intentionally removed per your request) -->
-
   </div>
 
-  <script>
-    const translations = {
-      en: {
-        heading: "🏥 Clinic Logistics Assistant",
-        intro: "Non-medical help only: scheduling/rescheduling, directions, parking, entrances, and how to find the clinic inside the building. For medical questions, call 1-833-UT-CARES (1-833-882-2737).",
-        placeholder: "Examples: 'Reschedule my appointment', 'Where do I park?', 'Which entrance/elevator?', 'Clinic address'",
-        button: "Ask",
-        emerg: "⚠️ Medical questions won’t be answered here. If you have symptoms or urgent concerns, call the clinic or go to the ER.",
-        thinking: "Thinking...",
-        empty: "Please type a question.",
-        error: "Something went wrong. Please try again or call the clinic."
-      },
-      es: {
-        heading: "🏥 Asistente de Logística de la Clínica",
-        intro: "Solo ayuda no médica: programar/reprogramar, direcciones, estacionamiento, entradas y cómo ubicar la clínica dentro del edificio. Para preguntas médicas, llama al 1-833-UT-CARES (1-833-882-2737).",
-        placeholder: "Ejemplos: 'Reprogramar mi cita', '¿Dónde estaciono?', '¿Qué entrada/ascensor?', 'Dirección de la clínica'",
-        button: "Preguntar",
-        emerg: "⚠️ Aquí no se responden preguntas médicas. Si tienes síntomas o urgencia, llama a la clínica o ve a Urgencias.",
-        thinking: "Pensando...",
-        empty: "Por favor escribe una pregunta.",
-        error: "Ocurrió un error. Intenta nuevamente o llama a la clínica."
-      }
-    };
+  <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
+    <label for="language" style="font-weight:600;margin-bottom:.35rem;">Language / Idioma:</label>
 
-    const langSelect = document.getElementById("language");
-    const askBtn = document.getElementById("askBtn");
-    const responseDiv = document.getElementById("response");
-    const textarea = document.getElementById("question");
-    const notice = document.querySelector(".notice");
-    const infoLink = document.querySelector(".info-box a");
+    <select id="language" style="padding:.45rem .75rem;border-radius:10px;border:1px solid #d2d2d7;font-size:.95rem;width:200px;text-align:center;">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
 
-    // --- Added: timers + cancellation guardrails (prevents weird stray chars) ---
-    let _typingTimer = null;
-    let _typingRunId = 0;
+    <textarea id="question"
+      placeholder="Examples: 'How do I schedule an appointment?', 'Where do I park?', 'How do I get to the memory clinic?', 'What is the clinic address?'"
+      style="width:100%;max-width:650px;box-sizing:border-box;min-height:130px;padding:1rem;border-radius:12px;border:1px solid #dcdce0;font-size:1rem;margin-bottom:1rem;"></textarea>
 
-    function _clearTypingTimers() {
-      _typingRunId++;
-      if (_typingTimer) {
-        clearInterval(_typingTimer);
-        _typingTimer = null;
-      }
+    <button onclick="ask()" style="padding:.85rem 2.5rem;font-weight:700;font-size:1rem;background:linear-gradient(45deg,#1565c0,#003c8f);color:#fff;border:none;border-radius:999px;cursor:pointer;box-shadow:0 6px 14px rgba(21,101,192,0.3);">
+      Ask
+    </button>
+  </div>
+
+  <div class="notice" id="notice">
+    ⚠️ This tool does not answer questions about symptoms, memory changes, medications, diagnoses, or emergencies.
+    For medical concerns, call the clinic or seek urgent care.
+  </div>
+
+  <div id="response"></div>
+
+  <div class="info-link">
+    <a href="/info">ℹ️ What this assistant can and cannot do</a>
+  </div>
+
+</div>
+
+<script>
+const TEXT = {
+  en: {
+    title: "🧠 Neurology Clinic Assistant",
+    subtitle: "This assistant provides non-medical clinic navigation and logistics only for the Mulva Clinic for the Neurosciences and Comprehensive Memory Center. You can ask about scheduling, directions, parking, check-in steps, and how to find the clinic. It does not provide medical advice or diagnoses.",
+    notice: "⚠️ This tool does not answer questions about symptoms, memory changes, medications, diagnoses, or emergencies. For medical concerns, call the clinic."
+  },
+  es: {
+    title: "🧠 Asistente de Clínica de Neurología",
+    subtitle: "Este asistente proporciona solo información administrativa para la Clínica de Neurociencias y el Centro Integral de Memoria. Puede preguntar sobre citas, direcciones, estacionamiento, registro y cómo encontrar la clínica. No brinda consejos médicos ni diagnósticos.",
+    notice: "⚠️ Esta herramienta no responde preguntas sobre síntomas, memoria, medicamentos, diagnósticos o emergencias. Para atención médica, llame a la clínica."
+  }
+};
+
+document.getElementById("language").addEventListener("change", e => {
+  const l = e.target.value;
+  document.getElementById("title").innerText = TEXT[l].title;
+  document.getElementById("subtitle").innerText = TEXT[l].subtitle;
+  document.getElementById("notice").innerText = TEXT[l].notice;
+});
+
+function linkify(text) {
+  return text.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>');
+}
+
+function typeWriter(el, html, speed = 12) {
+  el.innerHTML = "";
+  html = linkify(html);
+  let i = 0;
+  function step() {
+    if (i <= html.length) {
+      el.innerHTML = html.slice(0, i);
+      i++;
+      setTimeout(step, speed);
     }
+  }
+  step();
+}
 
-    // Hide response area initially (already hidden by CSS),
-    // but ensure JS can show/hide it reliably.
-    function showResponse(html) {
-      _clearTypingTimers();
-      responseDiv.innerHTML = html || "";
-      responseDiv.style.display = html ? "block" : "none";
-    }
+async function ask() {
+  const q = document.getElementById("question").value.trim();
+  const lang = document.getElementById("language").value;
+  const responseDiv = document.getElementById("response");
 
-    // --- Added: safe "thinking..." animation (textContent, not HTML) ---
-    function showThinking(label) {
-      _clearTypingTimers();
-      responseDiv.style.display = "block";
-      const base = (label || "Thinking...").replace(/\.*$/, "");
-      responseDiv.textContent = base + "...";
-      let dots = 0;
-      _typingTimer = setInterval(() => {
-        dots = (dots + 1) % 4;
-        responseDiv.textContent = base + ".".repeat(dots);
-      }, 350);
-    }
-
-    // --- Added: safe typewriter that never types partial HTML tags ---
-    function showResponseTypewriter(html) {
-      _clearTypingTimers();
-      const runId = _typingRunId;
-
-      responseDiv.style.display = "block";
-      responseDiv.innerHTML = "";
-
-      const cursor = document.createElement("span");
-      cursor.className = "cursor";
-      cursor.textContent = "▍";
-      responseDiv.appendChild(cursor);
-
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html || "", "text/html");
-      const nodes = Array.from(doc.body.childNodes);
-
-      const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
-      async function appendTextNodeGradually(text) {
-        const parts = String(text || "").split(/(\s+)/);
-        for (const part of parts) {
-          if (runId !== _typingRunId) return;
-          if (part === "") continue;
-          cursor.before(document.createTextNode(part));
-          await sleep(/\s+/.test(part) ? 8 : 16);
-        }
-      }
-
-      async function run() {
-        for (const n of nodes) {
-          if (runId !== _typingRunId) return;
-          if (n.nodeType === Node.TEXT_NODE) {
-            await appendTextNodeGradually(n.textContent);
-          } else {
-            cursor.before(n.cloneNode(true));
-            await sleep(25);
-          }
-        }
-        cursor.remove();
-      }
-
-      run();
-    }
-
-    // Load saved language
-    const savedLang = localStorage.getItem("lang") || "en";
-    langSelect.value = savedLang;
-    applyLanguage(savedLang);
-
-    langSelect.addEventListener("change", () => {
-      const selected = langSelect.value;
-      localStorage.setItem("lang", selected);
-      applyLanguage(selected);
-    });
-
-    function applyLanguage(lang) {
-      const t = translations[lang] || translations.en;
-      document.querySelector("h1").innerText = t.heading;
-      document.querySelector(".intro").innerHTML = t.intro.replace("1-833-UT-CARES (1-833-882-2737)", "<strong>1-833-UT-CARES (1-833-882-2737)</strong>");
-      textarea.placeholder = t.placeholder;
-      askBtn.innerText = t.button;
-      notice.innerText = t.emerg;
-      infoLink.innerText = "ℹ️ About this demo & what it covers";
-      document.documentElement.lang = lang;
-    }
-
-  function renderAnswer(raw) {
-    // 1) Keep any HTML you intentionally return (e.g., <b>...</b>)
-    // 2) Convert markdown links: [text](https://...)
-    let html = String(raw || "")
-      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
-
-    // Parse into DOM so we can safely linkify ONLY text nodes (avoids breaking existing HTML)
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-
-    // Linkify bare URLs in text nodes (https://...)
-    const urlRegex = /https?:\/\/[^\s<]+/g;
-
-    function linkifyTextNode(textNode) {
-      const text = textNode.nodeValue || "";
-      const matches = text.match(urlRegex);
-      if (!matches) return;
-
-      const frag = doc.createDocumentFragment();
-      let lastIndex = 0;
-
-      text.replace(urlRegex, (url, index) => {
-        // text before url
-        if (index > lastIndex) {
-          frag.appendChild(doc.createTextNode(text.slice(lastIndex, index)));
-        }
-        // url link
-        const a = doc.createElement("a");
-        a.href = url;
-        a.textContent = url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        frag.appendChild(a);
-
-        lastIndex = index + url.length;
-        return url;
-      });
-
-      // remaining text after last url
-      if (lastIndex < text.length) {
-        frag.appendChild(doc.createTextNode(text.slice(lastIndex)));
-      }
-
-      textNode.parentNode.replaceChild(frag, textNode);
-    }
-
-    // Walk all text nodes under body
-    const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
-    const textNodes = [];
-    while (walker.nextNode()) textNodes.push(walker.currentNode);
-    textNodes.forEach(linkifyTextNode);
-
-    // Final safety: enforce external-only links (strip weird hrefs)
-    doc.querySelectorAll("a").forEach((a) => {
-      const href = a.getAttribute("href") || "";
-      if (!/^https?:\/\//i.test(href)) {
-        a.replaceWith(doc.createTextNode(a.textContent));
-      } else {
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-      }
-    });
-
-    return doc.body.innerHTML;
+  if (!q) {
+    responseDiv.innerText = "Please type a question.";
+    return;
   }
 
-    async function ask() {
-      const question = textarea.value.trim();
-      const language = langSelect.value;
-      const t = translations[language] || translations.en;
-      if (!question) {
-        showResponse(renderAnswer(t.empty));
-        return;
-      }
-      askBtn.disabled = true;
+  responseDiv.innerText = "Thinking…";
 
-      // CHANGED: was showResponse(t.thinking);
-      showThinking(t.thinking);
+  try {
+    const res = await fetch(window.location.origin + "/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: q, language: lang })
+    });
 
-      try {
-        const res = await fetch("/ask", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, language })
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
+    const data = await res.json();
+    typeWriter(responseDiv, data.answer || "No response.");
+  } catch (err) {
+    responseDiv.innerText = "Something went wrong. Please try again.";
+  }
+}
+</script>
 
-        // CHANGED: was showResponse(renderAnswer(...));
-        showResponseTypewriter(renderAnswer(data.answer || ""));
-      } catch (err) {
-        console.error(err);
-        showResponse(t.error);
-      } finally {
-        askBtn.disabled = false;
-      }
-    }
-  </script>
 </body>
 </html>
