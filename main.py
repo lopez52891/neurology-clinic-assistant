@@ -209,6 +209,12 @@ FAQ = [
     }
 ]
 
+MEDICAL_KEYWORDS = [
+    "stroke", "seizure", "alzheimer", "alzheimers", "dementia",
+    "memory", "brain", "symptom", "diagnosis", "treatment",
+    "medication", "disease", "condition"
+]
+
 
 # =============================
 # Router
