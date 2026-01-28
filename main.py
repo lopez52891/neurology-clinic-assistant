@@ -78,6 +78,119 @@ FAQ = [
         "es": "Puede pagar su factura en línea aquí: https://16041-1.portal.athenahealth.com/"
     },
 
+    {
+    "triggers": [
+        "insurance",
+        "insurances",
+        "insurance accepted",
+        "accepted insurance",
+        "what insurance do you take",
+        "do you take insurance",
+        "insurance plans",
+        "health insurance",
+        "coverage"
+    ],
+    "en": (
+        "Insurance Accepted:\n\n"
+        "• AARP Medicare Complete Focus Essential HMO\n"
+        "• AARP Medicare Complete Focus HMO\n"
+        "• Accountable Health Plan / Interplan (SPHN)\n"
+        "• Aetna Medicare Advantage\n"
+        "• Aetna PPO / HMO (All HMO plans require a referral)\n"
+        "• Aetna Seton Health Alliance\n"
+        "• Aetna Whole Health\n"
+        "• Ambetter–Superior Health Plan (Exchange Plan)\n"
+        "• Amerigroup / Amerivantage Classic\n"
+        "• Beech Street PPO (SPHN)\n"
+        "• Blue Cross Blue Shield Blue Advantage HMO / Health Select (Referral required)\n"
+        "• Blue Cross Blue Shield Blue Choice PPO / UT Select\n"
+        "• Blue Cross Blue Shield Blue Essentials / Blue Essentials Access (Exchange)\n"
+        "• Blue Cross Blue Shield PAR Plan\n"
+        "• Cigna – All plans\n"
+        "• Cigna Behavioral Health\n"
+        "• Coventry (SPHN)\n"
+        "• Dell Children’s Health Plan STAR / CHIP\n"
+        "• EHN / WEB TPA (Whole Foods)\n"
+        "• First Care Access PPO Network (SPHN)\n"
+        "• First Health (SPHN)\n"
+        "• FirstCare HMO (SPHN) (Referral required)\n"
+        "• Galaxy (SPHN)\n"
+        "• Health Payors Organization (SPHN)\n"
+        "• HealthSmart (SPHN)\n"
+        "• Humana HMOx\n"
+        "• Humana Medicare Advantage (except Humana Gold Plus)\n"
+        "• Humana PPO / HMO / Choice Care (Referral required)\n"
+        "• Integrated Medical Systems PPO (SPHN)\n"
+        "• Medicaid / TMHP (Not accepted in Walk-In Clinic)\n"
+        "• Medicare Part B (Traditional fee-for-service – Novitas)\n"
+        "• Multiplan (SPHN) (PHCS out of network)\n"
+        "• Optum\n"
+        "• Oscar Healthcare (SPHN)\n"
+        "• Seton Health Plan\n"
+        "• SmartHealth\n"
+        "• Superior Health Plan STAR / CHIP / STAR Kids\n"
+        "• UnitedHealthcare AARP PPO\n"
+        "• UnitedHealthcare All Savers / Choice / Choice Plus / PPO / HMO (Referral required)\n"
+        "• UnitedHealthcare Community Plan – Medicaid\n"
+        "• UnitedHealthcare Dual Complete Focus HMO\n"
+        "• UnitedHealthcare Medicare\n"
+        "• UnitedHealthcare One\n"
+        "• United Student Resources PPO (SPHN)\n"
+        "• USA Managed Care (SPHN)\n\n"
+        "If you do not see your plan listed, please call 1-833-UT-CARES to confirm coverage."
+    ),
+    "es": (
+        "Seguros aceptados:\n\n"
+        "• AARP Medicare Complete Focus Essential HMO\n"
+        "• AARP Medicare Complete Focus HMO\n"
+        "• Accountable Health Plan / Interplan (SPHN)\n"
+        "• Aetna Medicare Advantage\n"
+        "• Aetna PPO / HMO (Los planes HMO requieren referencia)\n"
+        "• Aetna Seton Health Alliance\n"
+        "• Aetna Whole Health\n"
+        "• Ambetter–Superior Health Plan (Plan de intercambio)\n"
+        "• Amerigroup / Amerivantage Classic\n"
+        "• Beech Street PPO (SPHN)\n"
+        "• Blue Cross Blue Shield Blue Advantage HMO / Health Select (Referencia requerida)\n"
+        "• Blue Cross Blue Shield Blue Choice PPO / UT Select\n"
+        "• Blue Cross Blue Shield Blue Essentials / Blue Essentials Access (Intercambio)\n"
+        "• Blue Cross Blue Shield PAR Plan\n"
+        "• Cigna – Todos los planes\n"
+        "• Cigna Behavioral Health\n"
+        "• Coventry (SPHN)\n"
+        "• Dell Children’s Health Plan STAR / CHIP\n"
+        "• EHN / WEB TPA (Whole Foods)\n"
+        "• First Care Access PPO Network (SPHN)\n"
+        "• First Health (SPHN)\n"
+        "• FirstCare HMO (SPHN) (Referencia requerida)\n"
+        "• Galaxy (SPHN)\n"
+        "• Health Payors Organization (SPHN)\n"
+        "• HealthSmart (SPHN)\n"
+        "• Humana HMOx\n"
+        "• Humana Medicare Advantage (excepto Humana Gold Plus)\n"
+        "• Humana PPO / HMO / Choice Care (Referencia requerida)\n"
+        "• Integrated Medical Systems PPO (SPHN)\n"
+        "• Medicaid / TMHP (No aceptado en la clínica sin cita)\n"
+        "• Medicare Parte B (Servicio tradicional – Novitas)\n"
+        "• Multiplan (SPHN) (PHCS fuera de red)\n"
+        "• Optum\n"
+        "• Oscar Healthcare (SPHN)\n"
+        "• Seton Health Plan\n"
+        "• SmartHealth\n"
+        "• Superior Health Plan STAR / CHIP / STAR Kids\n"
+        "• UnitedHealthcare AARP PPO\n"
+        "• UnitedHealthcare All Savers / Choice / Choice Plus / PPO / HMO (Referencia requerida)\n"
+        "• UnitedHealthcare Community Plan – Medicaid\n"
+        "• UnitedHealthcare Dual Complete Focus HMO\n"
+        "• UnitedHealthcare Medicare\n"
+        "• UnitedHealthcare One\n"
+        "• United Student Resources PPO (SPHN)\n"
+        "• USA Managed Care (SPHN)\n\n"
+        "Si no ve su plan en la lista, llame al 1-833-UT-CARES para confirmar cobertura."
+         )
+    },
+
+
     # ================= PATIENT PORTAL =================
     {
         "triggers": ["patient portal", "portal", "mychart", "messages", "login"],
