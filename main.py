@@ -259,4 +259,14 @@ async def ask(q: Query):
             "Eres un asistente de logística de una clínica de neurología. Proporciona solo información administrativa."
         )
 
+    # 3️⃣ ACTUAL OpenAI CALL (this was missing)
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": q.question}
+        ],
+        temperature=0.2
+    )
+
     return {"answer": response.choices[0].message.content.strip()}
