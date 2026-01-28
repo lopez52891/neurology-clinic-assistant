@@ -226,31 +226,37 @@ def keyword_router(text, lang):
 @app.post("/ask")
 async def ask(q: Query):
 
+    # detect medical questions
+    is_medical = any(
+    word in q.question.lower()
+    for word in MEDICAL_KEYWORDS
+)
+
     # 1️⃣ Hardcoded admin first
     routed = keyword_router(q.question, q.language)
     if routed:
         return {"answer": routed}
 
-    # 2️⃣ LLM fallback (education only)
-    system_prompt = pick(
-        q.language,
-        "You are a neurology clinic logistics assistant. "
-            "Provide non-medical, administrative information only. "
-            "Do not give medical advice, diagnoses, or treatment recommendations. "
-            "If a question is medical, politely direct the user to contact the clinic.",
-            "Eres un asistente de logística de una clínica de neurología. "
-            "Proporciona solo información administrativa y no médica. "
-            "No brindes consejos médicos, diagnósticos ni recomendaciones de tratamiento. "
-            "Si la pregunta es médica, indica amablemente que llamen a la clínica."
-    )
-
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        temperature=0.4,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": q.question}
-        ]
-    )
+    # 2️⃣ LLM fallback
+    if is_medical:
+        system_prompt = pick(
+            q.language,
+            "You are a neurology clinic educational assistant for a demo. "
+            "Before answering, include a brief disclaimer that you are not providing medical advice. "
+            "Then provide a high-level, general educational explanation only. "
+            "Do not give diagnosis, treatment, or personal guidance. "
+            "End by encouraging the user to contact the clinic.",
+            "Eres un asistente educativo de neurología para una demostración. "
+            "Antes de responder, incluye un aviso de que no das consejos médicos. "
+            "Luego da una explicación general. "
+            "No des diagnósticos ni tratamientos. "
+            "Termina recomendando contactar a la clínica."
+        )
+    else:
+        system_prompt = pick(
+            q.language,
+            "You are a neurology clinic logistics assistant. Provide non-medical, administrative information only.",
+            "Eres un asistente de logística de una clínica de neurología. Proporciona solo información administrativa."
+        )
 
     return {"answer": response.choices[0].message.content.strip()}
