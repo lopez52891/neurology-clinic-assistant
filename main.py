@@ -50,6 +50,43 @@ FAQ = [
         "es": "Puede comunicarse con UT Health Austin al 1-833-UT-CARES (1-833-882-2737)."
     },
 
+    {
+  "triggers": [
+    "help",
+    "what can you do",
+    "what can you help with",
+    "i'm new",
+    "new patient",
+    "first time",
+    "how does this work"
+  ],
+  "en": (
+    "I can help with:\n\n"
+    "• Scheduling appointments\n"
+    "• Directions and parking\n"
+    "• Insurance accepted\n"
+    "• Billing and payments\n"
+    "• Patient portal access\n"
+    "• Clinic services and specialties\n"
+    "• Memory and cognitive care resources\n"
+    "• Caregiver support information\n\n"
+    "Tell me what you need help with."
+  ),
+  "es": (
+    "Puedo ayudar con:\n\n"
+    "• Programar citas\n"
+    "• Direcciones y estacionamiento\n"
+    "• Seguros aceptados\n"
+    "• Pagos y facturación\n"
+    "• Acceso al portal del paciente\n"
+    "• Servicios y especialidades\n"
+    "• Recursos de memoria y cognición\n"
+    "• Apoyo para cuidadores\n\n"
+    "Dígame cómo puedo ayudarle."
+    )
+    },
+
+
     # ================= APPOINTMENTS =================
     {
         "triggers": ["appointment", "schedule", "make appointment", "book appointment", "request appointment", "cita", "agendar"],
@@ -219,6 +256,17 @@ FAQ = [
         "es": "Puede ver los servicios ofrecidos aquí: https://uthealthaustin.org/clinics/mulva-clinic-for-the-neurosciences/services"
     },
 
+    {
+        "triggers": [
+            "memory center",
+            "comprehensive memory center",
+            "memory clinic",
+            "memory program"],
+        "en": "Learn about the Comprehensive Memory Center here: https://uthealthaustin.org/clinics/mulva-clinic-for-the-neurosciences/cognitive-disorders",
+        "es": "Obtenga información sobre el Centro Integral de Memoria aquí: https://uthealthaustin.org/clinics/mulva-clinic-for-the-neurosciences/cognitive-disorders"
+    },
+
+
     # ================= SPECIALTIES =================
     {
         "triggers": ["specialties", "specialty care", "neurology specialties"],
@@ -347,8 +395,8 @@ async def ask(q: Query):
 
     # detect medical questions
     is_medical = any(
-    word in q.question.lower()
-    for word in MEDICAL_KEYWORDS
+        word in q.question.lower()
+        for word in MEDICAL_KEYWORDS
 )
 
     # 1️⃣ Hardcoded admin first
