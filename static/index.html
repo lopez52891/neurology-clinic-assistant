@@ -4,7 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Neurology Clinic Assistant</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ✅ ICON + MARKDOWN LIBRARIES (ADDED) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
     :root { --brand: #1565c0; }
@@ -103,7 +108,24 @@
       border-radius: 12px;
       min-height: 2.5rem;
       line-height: 1.55;
-      white-space: pre-wrap;
+    }
+
+    /* ✅ ANSWER ICON STYLES (ADDED) */
+    .answer-box {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .answer-box i {
+      color: #0a5fd8;
+      width: 22px;
+      height: 22px;
+      margin-top: 3px;
+    }
+
+    .answer-text {
+      flex: 1;
     }
 
     .info-link {
@@ -195,42 +217,27 @@
 </div>
 
 <script>
-const TEXT = {
-  en: {
-    title: "🧠 Neurology Clinic Assistant",
-    subtitle: "This assistant provides non-medical clinic navigation and logistics only for the Mulva Clinic for the Neurosciences and Comprehensive Memory Center. You can ask about scheduling, directions, parking, check-in steps, and how to find the clinic. It does not provide medical advice or diagnoses.",
-    notice: "⚠️ This tool does not answer questions about symptoms, memory changes, medications, diagnoses, or emergencies. For medical concerns, call the clinic."
-  },
-  es: {
-    title: "🧠 Asistente de Clínica de Neurología",
-    subtitle: "Este asistente proporciona solo información administrativa para la Clínica de Neurociencias y el Centro Integral de Memoria. Puede preguntar sobre citas, direcciones, estacionamiento, registro y cómo encontrar la clínica. No brinda consejos médicos ni diagnósticos.",
-    notice: "⚠️ Esta herramienta no responde preguntas sobre síntomas, memoria, medicamentos, diagnósticos o emergencias. Para atención médica, llame a la clínica."
-  }
-};
+function renderAnswer(text) {
+  let icon = "info";
 
-document.getElementById("language").addEventListener("change", e => {
-  const l = e.target.value;
-  document.getElementById("title").innerText = TEXT[l].title;
-  document.getElementById("subtitle").innerText = TEXT[l].subtitle;
-  document.getElementById("notice").innerText = TEXT[l].notice;
-});
+  if (text.includes("Insurance Accepted")) icon = "shield-check";
+  else if (text.toLowerCase().includes("call")) icon = "phone";
+  else if (text.toLowerCase().includes("appointment")) icon = "calendar";
+  else if (text.toLowerCase().includes("direction")) icon = "map-pin";
+  else if (text.toLowerCase().includes("portal")) icon = "log-in";
+  else if (text.toLowerCase().includes("disclaimer")) icon = "alert-triangle";
+  else if (text.toLowerCase().includes("caregiver")) icon = "heart-handshake";
 
-function linkify(text) {
-  return text.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>');
-}
-
-function typeWriter(el, html, speed = 12) {
-  el.innerHTML = "";
-  html = linkify(html);
-  let i = 0;
-  function step() {
-    if (i <= html.length) {
-      el.innerHTML = html.slice(0, i);
-      i++;
-      setTimeout(step, speed);
-    }
-  }
-  step();
+  const answerDiv = document.getElementById("response");
+  answerDiv.innerHTML = `
+    <div class="answer-box">
+      <i data-lucide="${icon}"></i>
+      <div class="answer-text">
+        ${marked.parse(text)}
+      </div>
+    </div>
+  `;
+  lucide.createIcons();
 }
 
 async function ask() {
@@ -253,7 +260,7 @@ async function ask() {
     });
 
     const data = await res.json();
-    typeWriter(responseDiv, data.answer || "No response.");
+    renderAnswer(data.answer || "No response.");
   } catch (err) {
     responseDiv.innerText = "Something went wrong. Please try again.";
   }
